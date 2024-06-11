@@ -17,7 +17,7 @@ export class Post extends Model {
       user: fk("User", "posts"),
     }
   }
-
+  // @ts-ignore
   static reducer({ type, payload }, Post, session) {
     switch (type) {
       case createPost.type: {

@@ -15,7 +15,7 @@ export class User extends Model {
       name: attr(),
     }
   }
-
+  // @ts-ignore
   static reducer({ type, payload }, User, session) {
     switch (type) {
       case createUser.type: {

@@ -11,10 +11,13 @@ export const postIDsSelector = createSelector(orm, (session) => {
 
 // CURRENT USER POST IDS
 export const currentUserPostIDsSelector = createSelector(
-  [orm, (state) => state.currentUser],
+  // @ts-ignore
+  [orm, (state: { currentUser: any }) => state.currentUser],
+  // @ts-ignore
   (session, currentUser) => {
     if (currentUser === undefined || currentUser === null) return []
     const postModels = session.Post.all().toModelArray()
+    // @ts-ignore
     return postModels.flatMap((post) => {
       if (post.user.id === currentUser) {
         return [post.id]
@@ -27,9 +30,12 @@ export const currentUserPostIDsSelector = createSelector(
 // POST FOR GIVEN ID - SELECTOR CONSTRUCTOR
 // (seems to be ideal like this, one selector per item)
 // used to create a separate constructor per component for optimal memoization
+// @ts-ignore
 export const makeGetPostByID = (id) => {
+  // @ts-ignore
   return createSelector([orm], (session) => {
     console.log("selecting for id: ", id)
+    // @ts-ignore
     const post = session.Post.withId(id)
     if (!post) return null
     return {
@@ -42,6 +48,7 @@ export const makeGetPostByID = (id) => {
 
 // POST FOR GIVEN ID
 // avoids creating new objects for unrelated items
+// @ts-ignore
 export const postByIdSelector = createSelector([orm, (_, id) => id], (session, id) => {
   const post = session.Post.withId(id)
   if (!post) return null
@@ -77,10 +84,13 @@ export const postsSelector = createSelector(orm, (session) => {
 // CURRENT USER POSTS (creates new objects if one modified, not recommended)
 // returns posts for the current user (based on currentUser 'id' in store)
 export const currentUserPostsSelector = createSelector(
+  // @ts-ignore
   [orm, (state) => state.currentUser],
+  // @ts-ignore
   (session, currentUser) => {
     if (currentUser === undefined || currentUser === null) return []
     const postModels = session.Post.all().toModelArray()
+    // @ts-ignore
     return postModels.flatMap((post) => {
       if (post.user.id === currentUser) {
         return [
@@ -101,8 +111,10 @@ export const currentUserPostsSelector = createSelector(
 // e.g.   const userPosts = useSelector(state => userPostsSelector(state, id));
 // would return an array of posts for the user with the given id
 // (redux-orm style, not used in app)
+// @ts-ignore
 export const userPostsSelector = createSelector([orm.User, orm.User.posts], (user, posts) => {
   if (!posts) return []
+  // @ts-ignore
   return posts.map((post) => ({
     id: post.id,
     content: post.content,

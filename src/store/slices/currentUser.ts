@@ -5,6 +5,7 @@ export const currentUserSlice = createSlice({
   initialState: 1,
   reducers: {
     set: (state, { payload }) => payload,
+    // @ts-ignore
     clear: () => null,
   },
 })

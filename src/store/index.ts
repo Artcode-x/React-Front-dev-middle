@@ -14,12 +14,20 @@ const store = configureStore({
 })
 
 // add some initial fake data
+
+// @ts-ignore
 store.dispatch(createUser({ id: 1, name: "Frank" }))
+// @ts-ignore
 store.dispatch(createUser({ id: 2, name: "John" }))
+// @ts-ignore
 store.dispatch(createUser({ id: 3, name: "Anne" }))
+// @ts-ignore
 store.dispatch(createPost({ content: "A starter post by Frank", user: 1 }))
+// @ts-ignore
 store.dispatch(createPost({ content: "A second post by Frank", user: 1 }))
+// @ts-ignore
 store.dispatch(createPost({ content: "A starter post by John", user: 2 }))
+// @ts-ignore
 store.dispatch(createPost({ content: "A starter post by Anne", user: 3 }))
 
 export default store
